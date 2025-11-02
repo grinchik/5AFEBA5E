@@ -31,8 +31,8 @@ make iso SSH_PUBLIC_KEY_FILEPATH=~/.ssh/id_ed25519.pub
 
 `DISK_PATH` specifies the target disk for flashing:
 
-[!CAUTION]
-This operation will completely overwrite the target disk. Make sure you have selected the correct device to avoid data loss.
+> [!CAUTION]
+> This operation will completely overwrite the target disk. Make sure you have selected the correct device to avoid data loss.
 
 ```sh
 make flash DISK_PATH=/dev/diskX
