@@ -1,8 +1,8 @@
 # https://status.nixos.org
-CHANNEL=25.05
+CHANNEL=25.11
 
-# https://channels.nixos.org
-BUILD=811874.daf6dc47aa4b
+# https://hub.docker.com/r/nixos/nix/tags
+DOCKER_TAG=2.32.4
 
 HOST_NAME=5AFEBA5E
 HOST_ID=$(shell echo $(HOST_NAME) | tr '[:upper:]' '[:lower:]')
@@ -16,7 +16,6 @@ SSH_HOST_KEY_FILE_NAME=ssh_host_$(SSH_HOST_KEY_TYPE)_key
 SSH_HOST_KEY_PATH=$(WORKDIR_PATH)/$(SSH_HOST_KEY_FILE_NAME)
 
 BUILD_SCRIPT_PATH=$(WORKDIR_PATH)/build.sh
-NIXEXPRS_PATH=$(WORKDIR_PATH)/nixexprs.tar.xz
 CONFIG_PATH=$(WORKDIR_PATH)/$(HOST_NAME).nix
 ISO_PATH=$(WORKDIR_PATH)/$(HOST_NAME).iso
 
@@ -27,14 +26,6 @@ iso: \
 
 $(WORKDIR_PATH):
 	mkdir -p $@;
-
-$(NIXEXPRS_PATH): \
-	| $(WORKDIR_PATH) \
-	#
-	curl \
-		--output $@ \
-		https://releases.nixos.org/nixos/$(CHANNEL)/nixos-$(CHANNEL).$(BUILD)/nixexprs.tar.xz \
-	;
 
 $(SSH_HOST_KEY_PATH): \
 	| $(WORKDIR_PATH) \
@@ -76,12 +67,12 @@ $(BUILD_SCRIPT_PATH): \
 	Makefile \
 	| $(WORKDIR_PATH) \
 	#
-	NIXEXPRS_PATH="/$(NIXEXPRS_PATH)" \
+	CHANNEL="${CHANNEL}" \
 	CONFIG_PATH="/$(CONFIG_PATH)" \
 	ISO_PATH="/$(ISO_PATH)" \
 		envsubst \
 			'\
-			$$NIXEXPRS_PATH \
+			$$CHANNEL \
 			$$CONFIG_PATH \
 			$$ISO_PATH \
 			'\
@@ -93,7 +84,7 @@ $(ISO_PATH): \
 	$(SSH_HOST_KEY_PATH).pub \
 	$(BUILD_SCRIPT_PATH) \
 	$(CONFIG_PATH) \
-	$(NIXEXPRS_PATH) \
+	Makefile \
 	| $(WORKDIR_PATH) \
 	#
 	docker \
@@ -103,7 +94,7 @@ $(ISO_PATH): \
 			--platform=linux/amd64 \
 			--volume $(shell pwd)/$(WORKDIR_PATH):/$(WORKDIR_PATH) \
 			--workdir /$(WORKDIR_PATH) \
-			nixos/nix:latest \
+			nixos/nix:$(DOCKER_TAG) \
 				sh \
 					build.sh \
 	;

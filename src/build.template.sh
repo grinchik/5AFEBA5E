@@ -10,7 +10,7 @@ trap int_handler INT TERM
 nix-build \
     '<nixpkgs/nixos>' \
     --attr config.system.build.isoImage \
-    --include nixpkgs="${NIXEXPRS_PATH}" \
+    --include nixpkgs="channel:nixos-${CHANNEL}" \
     --include nixos-config="${CONFIG_PATH}" \
     --option filter-syscalls false \
     --show-trace \
