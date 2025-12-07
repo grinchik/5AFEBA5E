@@ -23,6 +23,7 @@
     pkgs.intel-gpu-tools
     pkgs.hdparm
     pkgs.smartmontools
+    pkgs.screen
   ];
 
   # network configuration
