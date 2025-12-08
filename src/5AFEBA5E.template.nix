@@ -25,6 +25,7 @@
     pkgs.smartmontools
     pkgs.screen
     pkgs.mc
+    pkgs.convmv
   ];
 
   # network configuration
