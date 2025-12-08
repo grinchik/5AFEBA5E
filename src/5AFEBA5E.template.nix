@@ -24,6 +24,7 @@
     pkgs.hdparm
     pkgs.smartmontools
     pkgs.screen
+    pkgs.mc
   ];
 
   # network configuration
