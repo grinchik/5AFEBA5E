@@ -10,6 +10,8 @@
     "${modulesPath}/installer/cd-dvd/iso-image.nix"
   ];
 
+  i18n.defaultLocale = "C.UTF-8";
+
   boot.supportedFilesystems = [
     "zfs"
   ];
