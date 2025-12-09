@@ -34,7 +34,8 @@
   networking.hostName = "$HOST_NAME";
   networking.hostId = "$HOST_ID";
 
-  networking.interfaces.enp1s0.ipv4.addresses = [{
+  # Installing nvme in M.2 PCIe 1 slot shifts interface name: enp1s0 -> enp2s0
+  networking.interfaces.enp2s0.ipv4.addresses = [{
     address = "192.168.3.103";
     prefixLength = 24;
   }];
