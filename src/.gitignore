@@ -1,3 +1,4 @@
 !/.gitignore
 !/5AFEBA5E.template.nix
 !/build.template.sh
+!/unrar.template.nix

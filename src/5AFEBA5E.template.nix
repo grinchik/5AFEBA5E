@@ -8,6 +8,7 @@
 {
   imports = [
     "${modulesPath}/installer/cd-dvd/iso-image.nix"
+    "/$WORKDIR_PATH/unrar.nix"
   ];
 
   i18n.defaultLocale = "C.UTF-8";

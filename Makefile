@@ -43,6 +43,7 @@ $(SSH_HOST_KEY_PATH).pub: \
 $(CONFIG_PATH): \
 	$(CONFIG_TEMPLATE_FILE_PATH) \
 	Makefile \
+	$(WORKDIR_PATH)/unrar.nix \
 	| $(WORKDIR_PATH) \
 	#
 	SSH_PUBLIC_KEY="$(shell cat $(SSH_PUBLIC_KEY_FILEPATH))" \
@@ -50,6 +51,7 @@ $(CONFIG_PATH): \
 	HOST_ID="$(HOST_ID)" \
 	SSH_HOST_KEY_TYPE="$(SSH_HOST_KEY_TYPE)" \
 	SSH_HOST_KEY_FILE_NAME="$(SSH_HOST_KEY_FILE_NAME)" \
+	WORKDIR_PATH="$(WORKDIR_PATH)" \
 		envsubst \
 			'\
 			$$SSH_PUBLIC_KEY\
@@ -57,13 +59,23 @@ $(CONFIG_PATH): \
 			$$HOST_ID \
 			$$SSH_HOST_KEY_TYPE\
 			$$SSH_HOST_KEY_FILE_NAME\
+			$$WORKDIR_PATH\
 			'\
 			< $< \
 			> $@ \
 		;
 
+$(WORKDIR_PATH)/unrar.nix: \
+	src/unrar.template.nix \
+	#
+	cp \
+		"$<" \
+		"$@" \
+	;
+
 $(BUILD_SCRIPT_PATH): \
 	$(BUILD_SCRIPT_TEMPLATE_PATH) \
+	workdir/unrar.nix \
 	Makefile \
 	| $(WORKDIR_PATH) \
 	#
