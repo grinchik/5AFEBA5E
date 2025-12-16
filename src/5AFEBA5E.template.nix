@@ -29,6 +29,7 @@
     pkgs.screen
     pkgs.mc
     pkgs.convmv
+    pkgs.p7zip
   ];
 
   # network configuration
