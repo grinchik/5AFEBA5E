@@ -30,6 +30,7 @@
     pkgs.mc
     pkgs.convmv
     pkgs.p7zip
+    pkgs.unzip
   ];
 
   # network configuration
