@@ -2,7 +2,7 @@
 CHANNEL=25.11
 
 # https://hub.docker.com/r/nixos/nix/tags
-DOCKER_TAG=2.32.4
+DOCKER_TAG=2.32.8
 
 HOST_NAME=5AFEBA5E
 HOST_ID=$(shell echo $(HOST_NAME) | tr '[:upper:]' '[:lower:]')
